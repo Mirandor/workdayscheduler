@@ -4,6 +4,9 @@ $(document).ready(function () {
   var today = moment().format('LLLL');
   $("#currentDay").text(today);
 
+  // Current Time Variable
+  var curTime = moment().format('H');
+
   // Work Hours Array
   var workHours = [
     8,
@@ -11,11 +14,11 @@ $(document).ready(function () {
     10,
     11,
     12,
-    1,
-    2,
-    3,
-    4,
-    5
+    13,
+    14,
+    15,
+    16,
+    17
   ];
 
   // Create Time Blocks
@@ -23,14 +26,39 @@ $(document).ready(function () {
     var timeBlock = moment().hours(workHours[i]).format('h A');
     $("#hour-block")
       .append(
-        `<div class="row hour">
-        <div class="col col-sm-1 time-block">` + timeBlock + `</div>
-        <div class="col col-lg-9"></div>
-        <div class="col col-sm-2"><button type="button" class="btn btn-block far fa-calendar-check saveBtn btn-lg">  SAVE  </button></div>
-      </div>`);
+        `<div class="row hour" id="${workHours[i]}">
+          <div class="col col-sm-1 time-block"> ${timeBlock} </div>
+          <textarea class="col col-lg-9" id="notes"></textarea>
+          <button class="col col-sm-2 btn btn-block far fa-calendar-check saveBtn btn-lg">  SAVE  </button>
+        </div>`);
   }
 
+  // Highlight Rows Based Current Time
+  $(".hour").each(function () {
+    var holdTime = parseInt($(this).attr("id"))
+    curTime = parseInt(curTime);
+    if (holdTime > curTime) {
+      $(this).addClass("future");
+    }
+    else if (holdTime === curTime) {
+      $(this).addClass("present");
+    }
+    else $(this).addClass("past");
+  });
 
+  
+  $(".saveBtn").on("click", function(){
+    var myNotes = $(this).siblings("#notes").val();
+    var storeTime = $(this).parent().attr("id");
+    console.log(myNotes);
+    console.log(storeTime);
+    localStorage.setItem(storeTime, myNotes);
+  })
+
+  for (var j = 0; j < workHours.length; j++) {
+    var counter = j + 8;
+  $("#" + counter).children("#notes").val(localStorage.getItem(counter));
+  }
 
 
   // Console Logs
