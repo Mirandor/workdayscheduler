@@ -18,7 +18,8 @@ $(document).ready(function () {
     14,
     15,
     16,
-    17
+    17,
+    18
   ];
 
   // Create Time Blocks
@@ -32,7 +33,7 @@ $(document).ready(function () {
           <button class="col col-sm-2 btn btn-block far fa-calendar-check saveBtn btn-lg">  SAVE  </button>
         </div>`);
   }
-
+  
   // Highlight Rows Based Current Time
   $(".hour").each(function () {
     var holdTime = parseInt($(this).attr("id"))
@@ -60,10 +61,4 @@ $(document).ready(function () {
   $("#" + counter).children("#notes").val(localStorage.getItem(counter));
   }
 
-
-  // Console Logs
-  console.log(today);
-  console.log(timeBlock);
-  console.log(startTime);
-  console.log(endTime);
 });
