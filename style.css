@@ -17,6 +17,12 @@ textarea:focus {
   outline-color: #03576B;
 }
 
+legend {
+  font-size: 12px;
+  text-align: center;
+  color: #464646;
+}
+
 .jumbotron {
   text-align: center;
   background-color: transparent;
